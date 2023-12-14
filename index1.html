@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html class="html" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- <link rel="stylesheet" href="./styles/main.css"> -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <!-- <script defer src="./scripts/main.js"></script> -->
+
+  <style>
+    body {
+      margin: 0;
+    }
+
+    body,
+    html {
+      overflow-x: hidden;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .wrapper {
+      margin: 0 auto;
+    }
+
+    .trigger {
+      position: absolute;
+    }
+
+    .trigger--one {
+      left: 0;
+    }
+
+    .scene {
+      position: absolute;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+
+    .scene--active {
+      position: fixed;
+    }
+
+    .scene--ended {
+      position: absolute;
+      bottom: 0;
+      top: auto;
+    }
+
+    .horizontal-scroll-section {
+      position: relative;
+      min-height: 100vh;
+      opacity: 1;
+    }
+
+    .horizontal-scroll-section img {
+      display: block;
+      max-height: 80%;
+      width: auto;
+    }
+    .horizontal-scroll-section--init {
+      opacity: 1; 
+  visibility: visible; 
+  transition: opacity 0.8s ease, visibility 0s; 
+}
+
+
+
+    .horizontal-scroll-section__content {
+      display: flex;
+      align-items: center;
+    }
+
+    .horizontal-scroll-section__content-wrapper {
+      display: flex;
+      height: 100%;
+      align-items: center;
+      position: relative;
+    }
+
+
+    
+    .horizontal-scroll-section__content-section {
+      position: relative;
+      min-width: 100vw;
+      text-align: center;
+      padding: 0 40px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    .horizontal-scroll-section__content-section img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .horizontal-scroll-section__image {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .horizontal-scroll-section__image h2 {
+      margin-top: 20px;
+      width: 250px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+  
+    .horizontal-scroll-section__image--two img {
+      max-width: 400px;
+    }
+
+    .horizontal-scroll-section__image--four img {
+      max-width: 400px;
+    }
+
+    .horizontal-scroll-section--animation-one .horizontal-scroll-section__image--two {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="horizontal-scroll-section">
+    <div class="scene">
+      <div class="horizontal-scroll-section__content-wrapper wrapper">
+        <div class="horizontal-scroll-section__content-section">
+          <img src="./assets/1.png" class="horizontal-scroll-section__image-one" alt="">
+          <div>
+            <h2>Content Testing 1</h2>
+          </div>
+        </div>
+
+        <div class="horizontal-scroll-section__content-section">
+          <div class="trigger trigger--one" data-class="horizontal-scroll-section--animation-one" data-offset="0.7">
+          </div>
+          <div class="horizontal-scroll-section__image horizontal-scroll-section__image--two">
+            <img src="./assets/2.png" alt="">
+            <h2>Here's a title in the animated section!</h2>
+          </div>
+        </div>
+
+
+        <div class="horizontal-scroll-section__content-section">
+          <img src="./assets/3.png" alt="">
+          <div>
+            <h2>Content Testing 1</h2>
+          </div>
+        </div>
+
+        <div class="horizontal-scroll-section__content-section">
+          <div class="horizontal-scroll-section__image horizontal-scroll-section__image--four">
+            <img src="./assets/4.png" alt="">
+            <h2>Content Testing 4</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <h2>Here's some content!</h2>
+    <h2>Here's some content!</h2>
+    <h2>Here's some content!</h2>
+    <h2>Here's some content!</h2>
+    <h2>Here's some content!</h2>
+    <h2>Here's some content!</h2>
+    <h2>Here's some content!</h2>
+  </div>
+
+
+
+
+
+</body>
+
+
+
+
+<script src="https://unpkg.com/d3@5.9.1/dist/d3.min.js"></script>
+<script src="https://russellsamora.github.io/scrollama/scrollama.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://dev.clicky.co.uk/codepen_utils/utils.js"></script>
+
+<script>
+
+  
+
+  $(function () {
+
+
+    // Define window variables
+
+    var winScrollTop = $(window).scrollTop();
+    var winHeight = window.innerHeight;
+    var winWidth = window.innerWidth;
+    var sceneClass = 'scene';
+    var sceneActiveClass = sceneClass + '--active';
+    var sceneEndedClass = sceneClass + '--ended';
+
+    $(window).on('resize', function () {
+      winHeight = window.innerHeight;
+      winWidth = window.innerWidth;
+    });
+
+    function setScene($el) {
+
+      var bounding = $el.data('elDom').getBoundingClientRect();
+
+      if (bounding.top > winHeight) {
+
+        $el.find('.scene').removeClass(sceneActiveClass);
+        $el.find('.scene').removeClass(sceneEndedClass);
+
+      } else if (bounding.bottom < 0) {
+
+        $el.find('.scene').addClass(sceneEndedClass);
+        $el.find('.scene').removeClass(sceneActiveClass);
+
+      } else {
+
+        if (bounding.top <= 0) {
+          $el.find('.scene').addClass(sceneActiveClass);
+        }
+
+        if (bounding.top > 0) {
+          $el.find('.scene').removeClass(sceneActiveClass);
+        }
+
+        if (bounding.bottom <= (winHeight)) {
+          $el.find('.scene').addClass(sceneEndedClass);
+        }
+
+        if (bounding.bottom > (winHeight)) {
+          $el.find('.scene').removeClass(sceneEndedClass);
+        }
+      }
+    }
+
+    function setUpHorizontalScroll($el) {
+
+      var sectionClass = $el.attr('class');
+
+      var $contentWrapper = $el.find('.' + sectionClass + '__content-wrapper');
+      var contentWrapperDom = $contentWrapper.get(0);
+      $el.data('contentWrapper', $contentWrapper);
+      $el.data('contentWrapperDom', contentWrapperDom);
+
+      var contentWrapperScrollWidth = $el.data('contentWrapperDom').scrollWidth;
+      $el.data('contentWrapperScrollWidth', contentWrapperScrollWidth);
+
+      var rightMax = $el.data('contentWrapperScrollWidth') - winWidth;
+      var rightMaxMinus = -(rightMax);
+      $el.data('rightMax', Number(rightMaxMinus));
+
+      $el.data('initalized', false);
+      $el.css('height', $el.data('contentWrapperScrollWidth'));
+      $el.data('outerHeight', $el.outerHeight());
+      $el.data('offsetTop', $el.offset().top);
+      $el.data('initalized', true);
+      $el.data('transformX', '0');
+      $el.addClass($el.attr('class') + '--init');
+    }
+
+    function resetHorizontalScroll($el) {
+      var contentWrapperScrollWidth = $el.data('contentWrapperDom').scrollWidth;
+      $el.data('contentWrapperScrollWidth', contentWrapperScrollWidth);
+      rightMax = $el.data('contentWrapperScrollWidth') - winWidth;
+      rightMaxMinus = -(rightMax);
+      $el.data('rightMax', Number(rightMaxMinus));
+      $el.css('height', $el.data('contentWrapperScrollWidth'));
+      $el.data('outerHeight', $el.outerHeight());
+      $el.data('offsetTop', $el.offset().top);
+      if ($el.data('transformX') <= $el.data('rightMax')) {
+        $el.data('contentWrapper').css({
+          'transform': 'translate3d(' + $el.data('rightMax') + 'px, 0, 0)',
+        });
+      }
+    }
+
+    var $horizontalScrollSections = $('.horizontal-scroll-section');
+    var $horizontalScrollSectionsTriggers = $horizontalScrollSections.find('.trigger');
+    $horizontalScrollSections.each(function (i, el) {
+      var $thisSection = $(this);
+      $(this).data('elDom', $(this).get(0));
+      setUpHorizontalScroll($(this));
+      setScene($(this));
+      $(window).on('resize', function () {
+        resetHorizontalScroll($thisSection);
+         setScene($thisSection);
+      });
+
+    });
+
+    function setupHorizontalTriggers($el, section) {
+      var parent = $el.parent();
+      var positionLeft = parent.position().left;
+      var positionLeftMinus = -(positionLeft);
+      var triggerOffset = $el.data('triggerOffset');
+      triggerOffset = !triggerOffset ? 0.5 : triggerOffset = triggerOffset;
+      $el.data('triggerOffset', triggerOffset);
+      $el.data('triggerPositionLeft', positionLeftMinus);
+      $el.data('triggerSection', section);
+    }
+
+    function useHorizontalTriggers($el) {
+      if ($el.data('triggerSection').data('transformX') <= ($el.data('triggerPositionLeft') * $el.data('triggerOffset'))) {
+        $el.data('triggerSection').addClass($el.data('class'));
+      } else {
+        if ($el.data('remove-class') !== false) {
+          $el.data('triggerSection').removeClass($el.data('class'));
+        }
+      }
+    }
+
+    $horizontalScrollSectionsTriggers.each(function (i, el) {
+      setupHorizontalTriggers($(this), $(this).closest('.horizontal-scroll-section'));
+    });
+
+    function transformBasedOnScrollHorizontalScroll($el) {
+
+      var amountScrolledContainer = winScrollTop - $el.data('offsetTop');
+      var amountScrolledThrough = (amountScrolledContainer / ($el.data('outerHeight') - (winHeight - winWidth)));
+      var toTransform = (amountScrolledThrough * $el.data('contentWrapperScrollWidth'));
+      var toTransformMinus = -(toTransform);
+      toTransformMinus = Math.min(0, toTransformMinus);
+      toTransformMinus = Math.max(toTransformMinus, $el.data('rightMax'));
+      $el.data('transformX', Number(toTransformMinus));
+      if ($el.data('initalized') == true) {
+        $el.data('contentWrapper').css({
+          'transform': 'translate3d(' + $el.data('transformX') + 'px, 0, 0)'
+        });
+      }
+    }
+
+    // 
+    $(window).on('scroll', function () {
+
+      winScrollTop = $(window).scrollTop();
+      $horizontalScrollSections.each(function (i, el) {
+        transformBasedOnScrollHorizontalScroll($(this));
+        setScene($(this));
+      });
+
+      $horizontalScrollSectionsTriggers.each(function (i, el) {
+        useHorizontalTriggers($(this));
+      });
+
+    });
+
+  });
+
+</script>
+
+
+
+
+</html>

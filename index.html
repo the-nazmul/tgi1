@@ -1,489 +1,177 @@
+
 <!DOCTYPE html>
-<html class="html" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" lang="en">
+<html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>Scrollama: Sticky Side Example</title>
+	<meta name="description" content="Scrollama: Sticky Side Example" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="./styles/style.css" />
+	<style>
+		#scrolly {
+			position: relative;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			background-color: #f3f3f3;
+			padding: 1rem;
+		}
 
-  <!-- <link rel="stylesheet" href="./styles/main.css"> -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-  <!-- <script defer src="./scripts/main.js"></script> -->
+		#scrolly>* {
+			-webkit-box-flex: 1;
+			-ms-flex: 1;
+			flex: 1;
+		}
 
-  <style>
-    body {
-      margin: 0;
-    }
+		article {
+			position: relative;
+			padding: 0 1rem;
+			max-width: 20rem;
+		}
 
-    body,
-    html {
-      overflow-x: hidden;
-    }
+		figure {
+			position: -webkit-sticky;
+			position: sticky;
+			width: 100%;
+			margin: 0;
+			-webkit-transform: translate3d(0, 0, 0);
+			-moz-transform: translate3d(0, 0, 0);
+			transform: translate3d(0, 0, 0);
+			background-color: #8a8a8a;
+			z-index: 0;
+            display: flex;
+    align-items: center;
+    justify-content: center;
+		}
 
-    img {
-      max-width: 100%;
-      height: auto;
-    }
+        figure img {
+            
+        }
 
-    .wrapper {
-      /* max-width: calc(100% - 100px); */
-      margin: 0 auto;
-    }
+		figure p {
+			text-align: center;
+			padding: 1rem;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-moz-transform: translate(-50%, -50%);
+			-webkit-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+			font-size: 8rem;
+			font-weight: 900;
+			color: #fff;
+		}
 
-    .trigger {
-      position: absolute;
-    }
+		.step {
+			margin: 0 auto 2rem auto;
+			background-color: #3b3b3b;
+			color: #fff;
+		}
 
-    .trigger--one {
-      left: 0;
-    }
+		.step:last-child {
+			margin-bottom: 0;
+		}
 
-    .scene {
-      position: absolute;
-      height: 100vh;
-      top: 0;
-      left: 0;
-      right: 0;
-    }
+		.step.is-active {
+			background-color: goldenrod;
+			color: #3b3b3b;
+		}
 
-    .scene--active {
-      position: fixed;
-    }
-
-    .scene--ended {
-      position: absolute;
-      bottom: 0;
-      top: auto;
-    }
-
-    .horizontal-scroll-section {
-      position: relative;
-      min-height: 100vh;
-      opacity: 1;
-    }
-
-    .horizontal-scroll-section img {
-      display: block;
-      max-height: 80%;
-      width: auto;
-    }
-    .horizontal-scroll-section--init {
-      opacity: 1; /* Fully visible when active */
-  visibility: visible; /* Make visible when active */
-  transition: opacity 0.8s ease, visibility 0s; /* Immediate transition for visibility when becoming visible */
-}
-
-
-
-    .horizontal-scroll-section__content {
-      display: flex;
-      align-items: center;
-    }
-
-    .horizontal-scroll-section__content-wrapper {
-      display: flex;
-      height: 100%;
-      align-items: center;
-      position: relative;
-    }
-
-
-    
-    .horizontal-scroll-section__content-section {
-      position: relative;
-      min-width: 100vw;
-      text-align: center;
-      padding: 0 40px;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      /* Stack children vertically */
-      justify-content: center;
-      align-items: center;
-      opacity: 0; /* Start with sections hidden */
-  transition: opacity 0.8s ease; /* Smooth transition for opacity */
-
-    }
-
-    .horizontal-scroll-section__content-section img {
-      max-width: 100%;
-      /* Ensure image is not larger than the container */
-      height: auto;
-      margin-bottom: 20px;
-      /* Add space between image and text */
-    }
-
-    .horizontal-scroll-section__content-section--active {
-      opacity: 1;
-    }
-
-    .horizontal-scroll-section__image {
-      display: flex;
-      flex-direction: column;
-      /* Stack children vertically */
-      align-items: center;
-    }
-
-    .horizontal-scroll-section__image h2 {
-      margin-top: 20px;
-      /* Add space above the h2 */
-      width: 250px;
-      text-align: center;
-      flex-shrink: 0;
-    }
-
-    .horizontal-scroll-section__image--two {
-      /* opacity: 0;
-     transform: translateX(30vw);
-     transition: 800ms transform ease-out, 400ms opacity; */
-    }
-
-    .horizontal-scroll-section__image--two img {
-      max-width: 400px;
-    }
-
-    .horizontal-scroll-section__image--four img {
-      max-width: 400px;
-    }
-
-    .horizontal-scroll-section--animation-one .horizontal-scroll-section__image--two {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  </style>
-
+		.step p {
+			text-align: center;
+			padding: 1rem;
+			font-size: 1.5rem;
+		}
+	</style>
 </head>
 
 <body>
+	<main>
 
-  <div class="horizontal-scroll-section">
-    <div class="scene">
-      <div class="horizontal-scroll-section__content-wrapper wrapper">
-        <div class="horizontal-scroll-section__content-section">
-          <img src="./assets/1.png" class="horizontal-scroll-section__image-one" alt="">
-          <div>
-            <h2>Content Testing 1</h2>
-          </div>
-        </div>
+ 
+        
+		<section id="scrolly">
+		
 
-        <div class="horizontal-scroll-section__content-section">
-          <div class="trigger trigger--one" data-class="horizontal-scroll-section--animation-one" data-offset="0.7">
-          </div>
-          <div class="horizontal-scroll-section__image horizontal-scroll-section__image--two">
-            <img src="./assets/2.png" alt="">
-            <h2>Here's a title in the animated section!</h2>
-          </div>
-        </div>
+			<figure>
+				<img src="./assets/1.png" alt="Step Image">
+			</figure>
+            <article>
+				<div class="step" data-step="1">
+					<p>STEP 1</p>
+				</div>
+				<div class="step" data-step="2">
+					<p>STEP 2</p>
+				</div>
+				<div class="step" data-step="3">
+					<p>STEP 3</p>
+				</div>
+				<div class="step" data-step="4">
+					<p>STEP 4</p>
+				</div>
+			</article>
+		</section>
 
+		<section id="outro"></section>
+	</main>
 
-        <div class="horizontal-scroll-section__content-section">
-          <img src="./assets/3.png" alt="">
-          <div>
-            <h2>Content Testing 1</h2>
-          </div>
-        </div>
+	<script src="https://unpkg.com/d3@5.9.1/dist/d3.min.js"></script>
+	<script src="./scripts/scrollama.min.js"></script>
+	<script>
+		var main = d3.select("main");
+		var scrolly = main.select("#scrolly");
+		var figure = scrolly.select("figure");
+		var article = scrolly.select("article");
+		var step = article.selectAll(".step");
 
-        <div class="horizontal-scroll-section__content-section">
-          <div class="horizontal-scroll-section__image horizontal-scroll-section__image--four">
-            <img src="./assets/4.png" alt="">
-            <h2>Content Testing 4</h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+		var scroller = scrollama();
+		function handleResize() {
+    var stepH = Math.floor(window.innerHeight * 0.75);
+    step.style("height", stepH + "px");
 
-  <div class="wrapper">
-    <h2>Here's some content!</h2>
-    <h2>Here's some content!</h2>
-    <h2>Here's some content!</h2>
-    <h2>Here's some content!</h2>
-    <h2>Here's some content!</h2>
-    <h2>Here's some content!</h2>
-    <h2>Here's some content!</h2>
-  </div>
+    var figureHeight = window.innerHeight / 2;
+    var figureMarginTop = (window.innerHeight - figureHeight) / 2;
 
+    figure
+        .style("height", figureHeight + "px")
+        .style("top", figureMarginTop + "px");
 
+    // Optionally, adjust the image size
+    figure.select("img")
+        .style("max-height", figureHeight + "px");
 
-
-
-</body>
-
-
-
-
-<script src="https://unpkg.com/d3@5.9.1/dist/d3.min.js"></script>
-<script src="https://russellsamora.github.io/scrollama/scrollama.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<script src="https://dev.clicky.co.uk/codepen_utils/utils.js"></script>
-
-<script>
-
-  
-
-  $(function () {
-
-    function checkVisibility() {
-  const sections = document.querySelectorAll('.horizontal-scroll-section__content-section');
-
-  sections.forEach(section => {
-    const rect = section.getBoundingClientRect();
-    const topVisible = rect.top >= 0 && rect.top < window.innerHeight;
-    const bottomVisible = rect.bottom > 0 && rect.bottom <= window.innerHeight;
-    const isVisible = topVisible || bottomVisible;
-
-    section.classList.toggle('horizontal-scroll-section__content-section--active', isVisible);
-  });
+    scroller.resize();
 }
 
-// Check visibility on scroll and resize
-window.addEventListener('scroll', checkVisibility);
-window.addEventListener('resize', checkVisibility);
-
-// Initial check
-checkVisibility();
-
-    // Define window variables
-
-    var winScrollTop = $(window).scrollTop();
-    var winHeight = window.innerHeight;
-    var winWidth = window.innerWidth;
-
-    // Define scene classes.
-    var sceneClass = 'scene';
-    var sceneActiveClass = sceneClass + '--active';
-    var sceneEndedClass = sceneClass + '--ended';
-
-    $(window).on('resize', function () {
-      winHeight = window.innerHeight;
-      winWidth = window.innerWidth;
+		function handleStepEnter(response) {
+    console.log(response);
+    step.classed("is-active", function (d, i) {
+        return i === response.index;
     });
 
-    // Scene classes function.
-    function setScene($el) {
+    // Update the image source based on step
+    var stepIndex = response.index + 1; // Since your steps start from 1
+    var imgSrc = `./assets/${stepIndex}.png`;
+    figure.select("img").attr("src", imgSrc);
+}
 
-      // Get bounding values from section.
-      var bounding = $el.data('elDom').getBoundingClientRect();
+		function init() {
 
-      if (bounding.top > winHeight) {
+			handleResize();
+			scroller
+				.setup({
+					step: "#scrolly article .step",
+					offset: 0.33,
+					debug: false
+				})
+				.onStepEnter(handleStepEnter);
+		}
 
-        // Section is below the viewport.
-        // Section has not ended or started, therefore remove classes.
-        $el.find('.scene').removeClass(sceneActiveClass);
-        $el.find('.scene').removeClass(sceneEndedClass);
-
-      } else if (bounding.bottom < 0) {
-
-        // Section is above the viewport.
-        // Section has ended, therefore remove classes.
-        $el.find('.scene').addClass(sceneEndedClass);
-        $el.find('.scene').removeClass(sceneActiveClass);
-
-      } else {
-
-        // We're now inside the section, not below or above.
-        // If top of section is at top of viewport, add class active.
-        if (bounding.top <= 0) {
-          $el.find('.scene').addClass(sceneActiveClass);
-        }
-
-        // If top of section is below top of viewport, remove class active.
-        if (bounding.top > 0) {
-          $el.find('.scene').removeClass(sceneActiveClass);
-        }
-
-        // If bottom of section is at bottom of viewport, add class ended.
-        if (bounding.bottom <= (winHeight)) {
-          $el.find('.scene').addClass(sceneEndedClass);
-        }
-
-        // If bottom of section is not at bottom of viewport, remove class ended.
-        if (bounding.bottom > (winHeight)) {
-          $el.find('.scene').removeClass(sceneEndedClass);
-        }
-      }
-    }
-
-    // This function sets up the horizontal scroll. This applies data attributes to the section for later use.
-    function setUpHorizontalScroll($el) {
-
-      var sectionClass = $el.attr('class');
-
-      // Set content wrapper variables & data attributes.
-      var $contentWrapper = $el.find('.' + sectionClass + '__content-wrapper');
-      var contentWrapperDom = $contentWrapper.get(0);
-      $el.data('contentWrapper', $contentWrapper);
-      $el.data('contentWrapperDom', contentWrapperDom);
-
-      // Set content wrapper scroll width variables & data attributes.
-      var contentWrapperScrollWidth = $el.data('contentWrapperDom').scrollWidth;
-      $el.data('contentWrapperScrollWidth', contentWrapperScrollWidth);
-
-      // Set right max variables & data attributes.
-      var rightMax = $el.data('contentWrapperScrollWidth') - winWidth;
-      var rightMaxMinus = -(rightMax);
-      $el.data('rightMax', Number(rightMaxMinus));
-
-      // Set initialized data variable to false do incidate scrolling functionality doesn't work yet.
-      $el.data('initalized', false);
-
-      // Set height of section to the scroll width of content wrapper.
-      $el.css('height', $el.data('contentWrapperScrollWidth'));
-
-      // Set data attribute for outerHeight.
-      $el.data('outerHeight', $el.outerHeight());
-
-      // Set data attribute for offset top.
-      $el.data('offsetTop', $el.offset().top);
-
-      // Set data initialized data variable to true to indicate ready for functionality.
-      $el.data('initalized', true);
-
-      // Set data variable for transform X (0 by default)
-      $el.data('transformX', '0');
-
-      // Add class of init
-      $el.addClass($el.attr('class') + '--init');
-    }
-
-    function resetHorizontalScroll($el) {
-
-
-      // Update data attribute for content wrapper scroll width.
-
-      var contentWrapperScrollWidth = $el.data('contentWrapperDom').scrollWidth;
-      $el.data('contentWrapperScrollWidth', contentWrapperScrollWidth);
-
-
-      // Update rightMax variables & data attributes.
-      rightMax = $el.data('contentWrapperScrollWidth') - winWidth;
-      rightMaxMinus = -(rightMax);
-      $el.data('rightMax', Number(rightMaxMinus));
-
-      // Update height of section to the scroll width of content wrapper.
-      $el.css('height', $el.data('contentWrapperScrollWidth'));
-
-      // Update data attribute for outerHeight.
-      $el.data('outerHeight', $el.outerHeight());
-
-      // Update data attribute for offset top.
-      $el.data('offsetTop', $el.offset().top);
-
-      // If transform is smaller than rightmax, make it rightmax.
-      if ($el.data('transformX') <= $el.data('rightMax')) {
-        $el.data('contentWrapper').css({
-          'transform': 'translate3d(' + $el.data('rightMax') + 'px, 0, 0)',
-        });
-      }
-    }
-
-    var $horizontalScrollSections = $('.horizontal-scroll-section');
-    var $horizontalScrollSectionsTriggers = $horizontalScrollSections.find('.trigger');
-
-    // Each function - set variables ready for scrolling functionality. Call horizontal scroll functions on load and resize.
-    $horizontalScrollSections.each(function (i, el) {
-
-      var $thisSection = $(this);
-
-      $(this).data('elDom', $(this).get(0));
-
-      // Set up horizontal scrolling data attributes and show section all have been computed.
-      setUpHorizontalScroll($(this));
-
-      // Now we're ready, call setScene on load that adds classes based on scroll position.
-      setScene($(this));
-
-      // Resize function
-      $(window).on('resize', function () {
-        // Reset horizontal scrolling data attributes and transform content wrapper if transform is bigger than scroll width.
-        resetHorizontalScroll($thisSection);
-        // Reset scene positioning.
-        setScene($thisSection);
-      });
-
-    });
-
-    function setupHorizontalTriggers($el, section) {
-      var parent = $el.parent();
-      var positionLeft = parent.position().left;
-      var positionLeftMinus = -(positionLeft);
-      var triggerOffset = $el.data('triggerOffset');
-      triggerOffset = !triggerOffset ? 0.5 : triggerOffset = triggerOffset;
-      $el.data('triggerOffset', triggerOffset);
-      $el.data('triggerPositionLeft', positionLeftMinus);
-      $el.data('triggerSection', section);
-    }
-
-    function useHorizontalTriggers($el) {
-      if ($el.data('triggerSection').data('transformX') <= ($el.data('triggerPositionLeft') * $el.data('triggerOffset'))) {
-        $el.data('triggerSection').addClass($el.data('class'));
-      } else {
-        if ($el.data('remove-class') !== false) {
-          $el.data('triggerSection').removeClass($el.data('class'));
-        }
-      }
-    }
-
-    $horizontalScrollSectionsTriggers.each(function (i, el) {
-      setupHorizontalTriggers($(this), $(this).closest('.horizontal-scroll-section'));
-    });
-
-    function transformBasedOnScrollHorizontalScroll($el) {
-
-      // Get amount scrolled variables.
-      var amountScrolledContainer = winScrollTop - $el.data('offsetTop');
-      var amountScrolledThrough = (amountScrolledContainer / ($el.data('outerHeight') - (winHeight - winWidth)));
-
-      // Add transform value variable based on amount scrolled through multiplied by scroll width of content.
-      var toTransform = (amountScrolledThrough * $el.data('contentWrapperScrollWidth'));
-
-      // Add transform value for minus (as we're transforming opposite direction).
-      var toTransformMinus = -(toTransform);
-
-      // If transform value is bigger or equal than 0, set value to 0.
-      toTransformMinus = Math.min(0, toTransformMinus);
-
-      // If transform value is smaller or equal than rightMax, set value to rightMax.
-      toTransformMinus = Math.max(toTransformMinus, $el.data('rightMax'));
-
-      // Update transformX data variable for section.
-      $el.data('transformX', Number(toTransformMinus));
-
-      // If section has been initalized, apply transform.
-      if ($el.data('initalized') == true) {
-        $el.data('contentWrapper').css({
-          'transform': 'translate3d(' + $el.data('transformX') + 'px, 0, 0)'
-        });
-      }
-    }
-
-    // 
-    $(window).on('scroll', function () {
-
-      // Get window scroll top.
-      winScrollTop = $(window).scrollTop();
-
-      // Each function in horizontal scroll sections.
-      $horizontalScrollSections.each(function (i, el) {
-        transformBasedOnScrollHorizontalScroll($(this));
-        setScene($(this));
-      });
-
-      // Each function for horizontal scroll section triggers.
-      $horizontalScrollSectionsTriggers.each(function (i, el) {
-        useHorizontalTriggers($(this));
-      });
-
-    });
-
-  });
-
-</script>
-
-
-
+		// kick things off
+		init();
+	</script>
+</body>
 
 </html>
