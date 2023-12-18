@@ -10,18 +10,33 @@
 	<link rel="stylesheet" href="./styles/style.css" />
 	<style>
 		#scrolly {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 			position: relative;
-			margin: 0px;
-			background-color: #c2c8ca
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			background-color: #f3f3f3;
+			padding: 1rem;
+		}
+
+		#scrolly>* {
+			-webkit-box-flex: 1;
+			-ms-flex: 1;
+			flex: 1;
 		}
 
 		article {
 			position: relative;
-			padding: 0;
-			margin: 0 auto
+			padding: 0 1rem;
+			max-width: 20rem;
 		}
 
 		figure {
+			display: flex;
+			align-items: center;
+			justify-content: center;
 			position: -webkit-sticky;
 			position: sticky;
 			left: 0;
@@ -30,21 +45,16 @@
 			-webkit-transform: translate3d(0, 0, 0);
 			-moz-transform: translate3d(0, 0, 0);
 			transform: translate3d(0, 0, 0);
-			background: #fff;
-			background-attachment: fixed;
+			background-color: #8a8a8a;
 			z-index: 0;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			overflow: hidden
+            display: flex;
+    align-items: center;
+    justify-content: center;
 		}
 
-		figure img {
-			width: 100%;
-			height: 100vh;
-			object-fit: cover;
-			width: auto
-		}
+        figure img {
+            
+        }
 
 		figure p {
 			text-align: center;
@@ -68,112 +78,38 @@
 		}
 
 		.step {
-			margin: 0 auto 2rem;
-			color: #0d0c0f;
-			background-color: transparent
+			margin: 0 auto 2rem auto;
+			background-color: #3b3b3b;
+			color: #fff;
 		}
 
 		.step:last-child {
-			margin-bottom: 0
+			margin-bottom: 0;
 		}
 
+		.step.is-active {
+			background-color: goldenrod;
+			color: #3b3b3b;
+		}
 
 		.cards {
-			max-width: 35%;
-			width: 100%;
-			margin: 10px auto;
-			padding: 15px;
-			background-color: #f9f9f9;
-			border: 1px solid #ddd;
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-			border-radius: 8px;
+
+			padding: 0.75rem 1rem;
+			border: 0.5px solid #777;
+			border-radius: 3px;
+			color: #121212;
+			font-family: Georgia, sans-serif;
+
 		}
 
 		.cards h4 {
-			font-weight: 700;
-			font-size: 22px;
-			line-height: 1.3;
-			margin-bottom: 10px;
-			margin-top: 0;
-			font-family: 'Inter', sans-serif;
-			color: transparent;
-    letter-spacing: 0.5px;
-    background: linear-gradient(to right, #006CA5 -5%, darkorange 50%);
-    -webkit-background-clip: text;
-    background-clip: text;
+			font-size: 2rem;
 		}
 
-		.cards p {
-			max-width: 100%;
-			margin: 0;
-			padding: 0;
-			font-weight: 400;
-			font-size: 17px;
-			line-height: 1.6;
-			color: #333;
-			font-family: 'Arial', sans-serif;
-		}
-
-		p.note {
-			border-top: 1px solid #aaa;
-			padding: 15px 0;
-			margin-top: 15px;
-			background-color: #f0f0f0;
-			line-height: 35px;
-		}
-
-		p.note b {
-			color: #fff;
-			background: #006CA5;
-			font-weight: 700;
-			padding: 6px 8px;
-		}
-
-		p.note i {
-			background: darkorange;
-			color: #fff;
-			font-weight: 700;
-			padding: 6px 8px;
-			font-style: normal;
-
-		}
-
-
-
-
-		@media screen and (max-width: 912px) and (orientation: portrait) {
-			.cards {
-				max-width: 50%;
-			}
-		}
-
-		@media screen and (max-width: 720px) and (orientation: portrait) {
-
-
-			.cards {
-				max-width: 75%;
-			}
-
-		}
-
-		@media screen and (max-width: 450px) and (orientation: portrait) {
-
-			.cards {
-				max-width: 99%;
-			}
-
-		}
-
-		@media screen and (max-width: 320px) and (orientation: portrait) {
-
-
-			.step p,
-			.credits-content p,
-			.step.is-active p,
-			p {
-				font-size: 13px !important;
-			}
-
+		.step p {
+			text-align: center;
+			padding: 1rem;
+			font-size: 1.5rem;
 		}
 	</style>
 </head>
@@ -181,17 +117,17 @@
 <body>
 	<main>
 
-
+ 
+        
 		<section id="scrolly">
+		
+
 			<figure>
 				<img src="./assets/1.png" loading="lazy" alt="your_image_description" />
 			</figure>
 			<article>
 				<div class="step" data-step="1">
-					<div class="cards">
-						<h4>In the first five minutes:</h4>
-						<p class="note">Both the <i>Awami League</i> post and the <b>BNP</b> post saw only one percent of the total number of their respective share counts.</p>
-					</div>
+					<p>STEP 1</p>
 				</div>
 				<div class="step" data-step="2">
 					<div class="cards">
@@ -241,6 +177,21 @@
 						<p class="note">The BNP post saw <b>no more</b> shares, but the Awami League post <i>one percent</i>.</p>
 					</div>
 				</div>
+				<div class="step" data-step="5">
+					<p>STEP 5</p>
+				</div>
+				<div class="step" data-step="6">
+					<p>STEP 6</p>
+				</div>
+				<div class="step" data-step="7">
+					<p>STEP 7</p>
+				</div>
+				<div class="step" data-step="8">
+					<p>STEP 8</p>
+				</div>
+				<div class="step" data-step="9">
+					<p>STEP 9</p>
+				</div>
 			</article>
 		</section>
 
@@ -265,33 +216,35 @@
 
 		// generic window resize listener event
 		function handleResize() {
-			// Set height for the step elements
-			step.style("height", "100vh");
+    var stepH = Math.floor(window.innerHeight * 0.75);
+    step.style("height", stepH + "px");
 
-			// Set height and top position for the figure element
-			figure.style("height", "100vh").style("top", "0px");
+    var figureHeight = window.innerHeight / 2;
+    var figureMarginTop = (window.innerHeight - figureHeight) / 2;
 
-			// Tell scrollama to update new element dimensions
-			scroller.resize();
-		}
+    figure
+        .style("height", figureHeight + "px")
+        .style("top", figureMarginTop + "px");
+
+    // Optionally, adjust the image size
+    figure.select("img")
+        .style("max-height", figureHeight + "px");
+
+    scroller.resize();
+}
 
 		// scrollama event handlers
 		function handleStepEnter(response) {
-			console.log(response);
-			// response = { element, direction, index }
+    console.log(response);
+    step.classed("is-active", function (d, i) {
+        return i === response.index;
+    });
 
-			// add color to current step only
-			step.classed("is-active", function (d, i) {
-				return i === response.index;
-			});
-
-			// update graphic based on step
-			var imgElement = figure.select("img");
-			imgElement.attr("src", `./assets/${1 + response.index}.png`);
-
-			// Trigger resize when the image is fully loaded
-			imgElement.on("load", handleResize);
-		}
+    // Update the image source based on step
+    var stepIndex = response.index + 1; // Since your steps start from 1
+    var imgSrc = `./assets/${stepIndex}.png`;
+    figure.select("img").attr("src", imgSrc);
+}
 
 		function init() {
 
